@@ -5,6 +5,14 @@ from pages.login_page import LoginPage
 import utils
 
 
+"""
+This test verifies that a user can successfully log in with valid 
+credentials.
+It uses parameterization to test multiple sets of valid credentials 
+from a CSV file.
+"""
+
+
 @pytest.mark.parametrize("users_list", utils.get_csv_data("test_data\\valid_users.csv"))
 def test_login_success(page, users_list):
     valid_username = str(users_list[0])
@@ -14,7 +22,15 @@ def test_login_success(page, users_list):
     assert "dashboard" in page.url
     expect(page.get_by_test_id("user-display")).to_contain_text(f"Hello, {valid_username}")
     login.logout()
-    time.sleep(0.1)
+    time.sleep(0.5)
+
+
+"""
+This test verifies that the login page displays an error message
+ when invalid credentials are entered.
+It uses parameterization to test multiple sets of invalid 
+credentials from a CSV file.
+"""
 
 
 @pytest.mark.parametrize("invalid_users_list", utils.get_csv_data("test_data\\invalid_users.csv"))
@@ -27,6 +43,14 @@ def test_invalid_login(page, invalid_users_list):
         login.logout()
     expect(page.get_by_test_id("login-error")).to_be_visible(timeout=2000)
     time.sleep(0.5)
+
+
+"""
+This test verifies that the login page displays an error message 
+when the username or password fields are left empty.
+It uses parameterization to test multiple combinations of 
+empty fields from a CSV file.
+"""
 
 
 @pytest.mark.parametrize("empty_users_list", utils.get_csv_data("test_data\\empty_fields_login.csv"))

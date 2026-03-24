@@ -1,7 +1,15 @@
 from pages.login_page import LoginPage
 from pathlib import Path
 
+"""
+This module contains utility functions for the test suite. 
+These utilities help to keep the test code clean and reusable 
+across multiple test cases.
+"""
 
+
+# Function to verify that a user is logged in by checking the URL
+# and performing a login if necessary.
 def verify_login(page):
     if "dashboard" not in page.url:
         login = LoginPage(page)
@@ -9,6 +17,7 @@ def verify_login(page):
         assert "dashboard" in page.url
 
 
+# Function to read data from a CSV file and return it as a list of rows.
 def get_csv_data(csv_file) -> list:
     import csv
     data = []
@@ -23,6 +32,7 @@ def get_csv_data(csv_file) -> list:
     return data
 
 
+# Function to convert a string representation of a boolean value to an actual boolean.
 def str_to_bool(s):
     s = s.strip().lower()
     if s == "true":
@@ -31,6 +41,7 @@ def str_to_bool(s):
         return False
 
 
+# Function to convert an event type string to a more descriptive format
 def event_type_conversion(event_type):
     match event_type:
         case "attack":

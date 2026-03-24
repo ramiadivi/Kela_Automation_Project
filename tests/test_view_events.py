@@ -5,6 +5,17 @@ import utils
 import pytest
 
 
+"""
+This test verifies that a user can view the list of events after
+ adding a task.
+It uses parameterization to test multiple sets of task details 
+from a CSV file.
+It checks that the event list is visible and contains the correct 
+information about the added task. 
+It also verifies that the view events button works correctly.
+"""
+
+
 @pytest.mark.parametrize("event_list", utils.get_csv_data("test_data\\view_events.csv"))
 def test_dashboard(page, event_list):
     task_name = str(event_list[0])
@@ -17,5 +28,4 @@ def test_dashboard(page, event_list):
     assert dashboard.is_event_list_visible()
     expect(page.get_by_test_id("events-list")).to_contain_text(f"Task \"{task_name}\" added at")
     page.get_by_test_id("view-events-btn").click()
-    time.sleep(2)
-
+    time.sleep(0.5)

@@ -3,6 +3,13 @@ from pages.login_page import LoginPage
 import time
 import utils
 
+"""
+This test verifies that the dashboard page displays the correct
+elements after a successful login.
+It checks for the presence of the dashboard title, buttons for adding
+tasks and urgent events, viewing events
+"""
+
 
 def test_dashboard(page):
     login = LoginPage(page)
